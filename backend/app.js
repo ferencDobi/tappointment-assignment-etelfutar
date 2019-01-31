@@ -1,11 +1,20 @@
 const express = require('express');
+const morgan = require('morgan');
+const path = require('path');
+const logger = require('log4js').getLogger('app');
+
+const { PORT, NODE_ENV } = process.env;
+
+logger.level = NODE_ENV === 'development' ? 'info' : 'off';
 
 const app = express();
 
+app.use(morgan('tiny'));
+
 app.get('/', (request, response) => {
-    response.send('Ételfutár');
+  response.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
-app.listen(3001, () => {
-    console.log('Listening on port 3001...');
+app.listen(PORT, () => {
+  logger.info(`Listening on port ${PORT}...`);
 });
