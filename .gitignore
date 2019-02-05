@@ -57,5 +57,10 @@ typings/
 # dotenv environment variables file
 .env
 
+# other sensitive files
+dbsettings.js
+
 # next.js build output
 .next
+
+
