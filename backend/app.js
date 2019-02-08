@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const path = require('path');
 const logger = require('log4js').getLogger('app');
 
@@ -13,6 +14,10 @@ logger.level = LOG_LEVEL;
 const app = express();
 
 app.use(morgan('tiny'));
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 
 app.use('/menu', require('./routes/menu'));
 

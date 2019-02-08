@@ -2,7 +2,10 @@ const express = require('express');
 const logger = require('log4js').getLogger('menu');
 const { Op } = require('sequelize');
 
-const MenuItem = require('../models/menuItem');
+const MenuItem = require('../models/MenuItem');
+const MenuToDTO = require('../models/MenuToDTO');
+
+logger.level = process.env.LOG_LEVEL;
 
 const router = express.Router();
 
@@ -20,7 +23,7 @@ router.route('/').get((request, response) => {
       }
     }
   }).then((items) => {
-    response.json(items);
+    response.json(MenuToDTO.convertMany(items));
     logger.info(items);
   }).catch((error) => {
     response.json({ error: 'Something went wrong.' });
