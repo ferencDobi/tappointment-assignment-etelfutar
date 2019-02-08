@@ -1,9 +1,10 @@
 import React from 'react';
-import '../App.css';
+import Meals from './Meals';
 
 const App = () => (
   <div>
     Ételfutár
+    <Meals />
   </div>
 );
 
