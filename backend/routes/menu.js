@@ -1,7 +1,8 @@
 const express = require('express');
 const logger = require('log4js').getLogger('menu');
+const { Op } = require('sequelize');
 
-const pool = require('../utilities/connection');
+const MenuItem = require('../models/menuItem');
 
 const router = express.Router();
 
@@ -12,18 +13,19 @@ router.route('/').get((request, response) => {
 
   if (!categories.includes(category)) category = '%';
 
-  pool.query(
-    `SELECT * FROM MenuItems 
-    WHERE category LIKE ?`, category,
-    (error, results) => {
-      if (error) {
-        logger.error(error);
-      } else {
-        logger.warn(results);
-        response.send(results);
+  MenuItem.findAll({
+    where: {
+      Category: {
+        [Op.like]: category
       }
     }
-  );
+  }).then((items) => {
+    response.json(items);
+    logger.info(items);
+  }).catch((error) => {
+    response.json({ error: 'Something went wrong.' });
+    logger.error(error);
+  });
 });
 
 module.exports = router;

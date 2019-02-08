@@ -6,9 +6,9 @@ const logger = require('log4js').getLogger('app');
 require('dotenv').config();
 
 const port = process.env.PORT || 3001;
-const { NODE_ENV } = process.env;
+const { LOG_LEVEL } = process.env;
 
-logger.level = NODE_ENV === 'development' ? 'info' : 'off';
+logger.level = LOG_LEVEL;
 
 const app = express();
 

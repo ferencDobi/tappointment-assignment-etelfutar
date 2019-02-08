@@ -1,21 +1,27 @@
-const mysql = require('mysql');
+const Sequelize = require('sequelize');
+const logger = require('log4js').getLogger('database');
 
 const {
   DB_HOST,
   DB_USER,
   DB_PASSWORD,
-  DB_NAME
+  DB_NAME,
+  LOG_LEVEL
 } = process.env;
 
-const connectionPool = mysql.createPool({
-  host: DB_HOST,
-  user: DB_USER,
-  password: DB_PASSWORD,
-  database: DB_NAME
-});
+logger.level = LOG_LEVEL;
 
-process.on('SIGTERM', () => {
-  connectionPool.releaseConnection();
-});
+const connection = new Sequelize(
+  `mysql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:3306/${DB_NAME}`,
+  {
+    operatorsAliases: false,
+    logging: logger.debug.bind(logger)
+  }
+);
 
-module.exports = connectionPool;
+connection
+  .sync()
+  .then(() => logger.info('Database connection established successfully.'))
+  .catch(error => logger.error('Unable to connect to the database:', error));
+
+module.exports = connection;
