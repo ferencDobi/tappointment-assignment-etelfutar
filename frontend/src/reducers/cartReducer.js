@@ -3,6 +3,7 @@ import * as actions from '../actions/actionConstants';
 export const cartReducer = (state = [], action) => {
   switch(action.type) {
     case actions.ADD_TO_CART:
+    {
       const { item } = action;
 
       const itemInCart = state.find(cartItem => cartItem.id === item.id);
@@ -17,6 +18,14 @@ export const cartReducer = (state = [], action) => {
         const { id, name, price } = item;
         return state.concat({ id, name, price, amount: 1 });
       }
+    }
+    
+    case actions.REMOVE_FROM_CART:
+    {
+      const { item } = action;
+
+      return state.filter(cartItem => cartItem.id !== item.id);
+    }
 
     default:
       return state;

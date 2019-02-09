@@ -4,4 +4,8 @@ const addToCart = item => {
   return { type: actions.ADD_TO_CART, item };
 };
 
-export { addToCart };
+const removeFromCart = item => {
+  return { type: actions.REMOVE_FROM_CART, item };
+}
+
+export { addToCart, removeFromCart };
