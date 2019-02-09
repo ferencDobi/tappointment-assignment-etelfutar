@@ -1,0 +1,46 @@
+@import './constants';
+
+html {
+  box-sizing: border-box;
+  background: $secondary-color;
+  overflow-y: scroll;
+}
+
+button {
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $title-font;
+  text-align: center;
+}
+
+p, a, input {
+  font-family: $main-font;
+}
+
+
+.fa-carrot {
+  > path {
+    color: $success-green;
+  }
+}
+
+.fa-pepper-hot {
+  > path {
+    color: $error-red;
+  }
+}

@@ -1,0 +1,24 @@
+@import '../common/constants';
+@import '../common/mixins';
+
+.categories {
+  width: 60vw;
+  background: $primary-dark; 
+  margin: 0 auto;
+  padding: 1vw;
+  display: flex;
+  justify-content: center;
+
+  button {
+    @include standard-button;
+    font-size: 0.75rem;
+    width: 4rem;
+    padding: 0.2rem;
+    
+    svg {
+      display: block;
+      font-size: 2rem;
+      margin: 0.5rem auto;
+    }
+  }
+}

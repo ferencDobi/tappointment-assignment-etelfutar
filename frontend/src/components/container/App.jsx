@@ -1,10 +1,13 @@
 import React from 'react';
-import Meals from './Meals';
+import '../../styles/App.scss';
+import Menu from './Menu';
+import Categories from './Categories';
 
 const App = () => (
   <div>
-    Ételfutár
-    <Meals />
+    <h1>Ételfutár</h1>
+    <Categories />
+    <Menu />
   </div>
 );
 

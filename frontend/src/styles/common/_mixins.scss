@@ -1,0 +1,14 @@
+@import './constants';
+
+@mixin standard-button {
+  background: $primary-dark;
+  border: $contrast-color solid 0.1rem;
+  color: $contrast-color;
+  transition: 0.2s all $ease-in-out-quad;
+
+  &:hover {
+    color: $primary-dark;
+    background: $contrast-color;
+    transition: 0.2s all $ease-in-out-quad;
+  }
+}

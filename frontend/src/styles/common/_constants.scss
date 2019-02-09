@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Caveat|Lato');
+
+// FONTS
+$title-font: 'Caveat', cursive;
+$main-font: 'Lato', sans-serif;
+
+// COLORS
+$primary-dark: #220c10;
+$primary-color: #e29912;
+$secondary-dark: #030027;
+$contrast-color: #f2f3d9;
+$secondary-color: #7b0d1e;
+$error-red: #ff2929;
+$success-green: #009000;
+
+// TRANSITIONS
+$ease-in-out-quad: cubic-bezier(.455, .03, .515, .955);

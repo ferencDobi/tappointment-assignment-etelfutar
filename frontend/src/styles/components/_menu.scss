@@ -1,0 +1,59 @@
+@import '../common/constants';
+@import '../common/mixins';
+
+.menu {
+  width: 60vw;
+  background: $primary-color; 
+  margin: 0 auto;
+  padding: 1vw;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 1vw;
+
+  .card {
+    display: inline-flex;
+    flex-direction: column;
+    background: $primary-dark;
+    grid-column: span 4;
+    padding: 0.5vw 1vw;
+    color: $contrast-color;
+    text-align: center;
+
+    h3 {
+      svg {
+        margin-left: 0.5rem;
+      }
+    }
+
+    img {
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .description {
+      height: 2rem;
+    }
+
+    .order {
+      display: flex;
+      justify-content: center;
+      width: 80%;
+      margin: 1rem auto;
+
+      p.price {
+        padding: 0.5rem;
+        border: $contrast-color solid 0.1rem;
+        border-right: 0;
+        font-size: 1.15rem;
+        margin: 0;
+      }
+
+      button {
+        @include standard-button;
+        padding: 0.5rem;
+        font-size: 1.15rem;
+      }
+    }
+  }
+}
