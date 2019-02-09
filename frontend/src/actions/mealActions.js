@@ -1,4 +1,4 @@
-import MenuApi from "../api/MenuApi";
+import MenuApi from '../api/MenuApi';
 import * as actions from './actionConstants';
 
 const loadMeals = meals => {

@@ -1,11 +1,12 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Card } from "../presentational/Card";
+import React from 'react';
+import { connect } from 'react-redux';
+import { addToCart } from '../../actions/cartActions';
+import { Card } from '../presentational/Card';
 
-const Menu = ({ meals }) => {
+const Menu = ({ meals, addToCart }) => {
   return (
     <div className="menu">
-      {meals.map(meal => <Card key={meal.id} meal={meal} />)}
+      {meals.map(meal => <Card key={meal.id} meal={meal} addToCart={addToCart} />)}
     </div>
   );
 }
@@ -16,4 +17,12 @@ const mapStateToProps = ({ meals, menu }) => {
   } else return { meals };
 };
 
-export default connect(mapStateToProps)(Menu);
+const mapDispatchToProps = dispatch => {
+  return {
+    addToCart: item => {
+      dispatch(addToCart(item));
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);
