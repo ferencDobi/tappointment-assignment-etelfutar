@@ -1,13 +1,14 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 
-export const FormField = ({field, changeHandler}) => {
-  let {title, name, value, type, required} = field;
+export const FormField = ({ field, changeHandler }) => {
+  let { title, name, value, type, error, required } = field;
 
   return (
     <Fragment>
       <label htmlFor={name}>{title}:</label>
       <input type={type} id={name} name={name} value={value} 
              onChange={changeHandler} required={required} />
+      {error && <p className={'error-message ' + name}>{error}</p>}
     </Fragment>
   );
 };

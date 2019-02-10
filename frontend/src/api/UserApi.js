@@ -1,17 +1,12 @@
 import api from './connection';
-import { formToUser } from '../helpers/utilities';
 
 const UserApi = {
   saveUser: formData => {
-    const user = formToUser(formData);
-
-    return api.post('/register', JSON.stringify(user));
+    return api.post('/register', JSON.stringify(formData));
   },
 
   validateUser: formData => {
-    const user = formToUser(formData);
-
-    return api.post('/authenticate', JSON.stringify(user));
+    return api.post('/authenticate', JSON.stringify(formData));
   }
 };
 

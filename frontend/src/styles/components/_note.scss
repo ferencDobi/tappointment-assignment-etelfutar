@@ -97,7 +97,7 @@
     }
 
     form {
-      margin-top: 45px;
+      margin-top: 20px;
       
       label {
         margin: 0 0.5rem 0 0;
@@ -113,13 +113,33 @@
         border-bottom: 0.125rem solid black;
         font-family: $title-font;
         font-size: 1.25rem;
-        margin: -5px 0 22px 0;
+        margin: -5px 0 47px 0;
         width: 17.5rem;
 
         &:invalid {
           box-shadow: none;
         }
       }
+
+      .error-message {
+        position: absolute;
+        font-family: $title-font;
+        font-size: 1.25rem;
+        color: $error-red;
+
+        &.email {
+          top: 50px;
+        }
+
+        &.password {
+          top: 150px;
+        }
+
+        &.confirmPassword {
+          top: 250px;
+        }
+      }
+
       .form-buttons {
         position: absolute;
         bottom: 50px;
