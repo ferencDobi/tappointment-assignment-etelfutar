@@ -12,14 +12,15 @@ const categories = [
   { name: 'MainDish', title: 'Főétel', icon: faUtensils },
   { name: 'Pizza', title: 'Pizza', icon: faPizzaSlice },
   { name: 'Dessert', title: 'Desszert', icon: faIceCream },
-  { name: 'Drink', title: 'Ital', icon: faGlassCheers }
+  { name: 'Drink', title: 'Üdítő', icon: faGlassCheers }
 ];
 
-const Categories = ({ selectCategory }) => (
+const Categories = ({ selectCategory, menu }) => (
   <nav className="categories">
     {categories.map((category, i) => {
       return (
-        <button key={'category-' + i} onClick={() => selectCategory(category.name)}>
+        <button key={'category-' + i} className={category.name === menu ? 'selected': ''}
+                onClick={() => selectCategory(category.name)}>
           <FontAwesomeIcon icon={category.icon} />
           {category.title}
         </button>
@@ -27,6 +28,8 @@ const Categories = ({ selectCategory }) => (
     })}
   </nav>
 );
+
+const mapStateToProps = ({ menu }) => ({ menu });
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -36,4 +39,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Categories);
+export default connect(mapStateToProps, mapDispatchToProps)(Categories);

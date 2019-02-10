@@ -2,9 +2,6 @@
 @import '../common/mixins';
 
 .categories {
-  width: 60vw;
-  background: $primary-dark; 
-  margin: 0 auto;
   padding: 1vw;
   display: flex;
   justify-content: center;
@@ -14,6 +11,12 @@
     font-size: 0.75rem;
     width: 4rem;
     padding: 0.2rem;
+
+    &.selected {
+      cursor: default;
+      color: $primary-dark;
+      background: $contrast-color;
+    }
     
     svg {
       display: block;

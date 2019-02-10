@@ -1,0 +1,12 @@
+@import '../common/constants';
+
+.header {
+  width: 60vw;
+  background: $primary-dark;
+  margin: 2.5rem auto 0 auto;
+  padding: 1vw;
+  
+  h1 {
+    color: $contrast-color;
+  }
+}

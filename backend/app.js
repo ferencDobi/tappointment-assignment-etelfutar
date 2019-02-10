@@ -19,7 +19,7 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(express.static('public'))
+app.use(express.static('public'));
 app.use('/menu', require('./routes/menu'));
 
 app.get('/', (request, response) => {

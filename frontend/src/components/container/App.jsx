@@ -1,16 +1,20 @@
 import React from 'react';
-import '../../styles/App.scss';
+import { connect } from 'react-redux';
 import Menu from './Menu';
-import Categories from './Categories';
+import Header from './Header';
 import Cart from './Cart';
+import UserForm from './UserForm';
 
-const App = () => (
+const App = ({ authenticated }) => (
   <div>
-    <h1>Ételfutár</h1>
-    <Categories />
+    <Header />
     <Menu />
-    <Cart />
+    {authenticated ? <Cart /> : <UserForm />}
   </div>
 );
 
-export default App;
+const mapStateToProps = ({ user }) => {
+  return { authenticated: Boolean(user.id) };
+};
+
+export default connect(mapStateToProps)(App);
