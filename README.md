@@ -27,12 +27,11 @@ If everything was done right, the frontend and backend servers should now start 
 * There is no upper limit for the cart.
 * The cart cannot be processed, as there's no order button.
 * Even if there was an order button, payment wasn't implemented.
-* Once you're logged in, you cannot log out. (There is no button or route for it. For more, see known issues).
-* Well, technically you can log out by refreshing the page, because client-side session is missing and server-side session does not work.
+* There is no button or route for logging out.
 
 ## Known issues
 
-* The login doesn't work currently: the backend cannot serialize the user and store it on session due to some bug. However, a user can successfully log in by registering to the site.
+* Session handling is not implemented on the client-side, which means refreshing the page automatically logs you out.
 * Frontend design is not responsive (It's as much an issue, as its a missing feature. Sadly, I ran out of time. :( ).
 
 ## Time spent on the assignment

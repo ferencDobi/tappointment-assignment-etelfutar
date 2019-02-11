@@ -17,7 +17,7 @@ const config = (app) => {
 
   passport.deserializeUser((id, done) => {
     logger.info(`Deserializing User ${id}`);
-    User.findById(id)
+    User.findByPk(id)
       .then(user => done(null, user))
       .catch(error => logger.error(error));
   });

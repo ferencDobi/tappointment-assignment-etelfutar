@@ -1,6 +1,5 @@
 const express = require('express');
 const passport = require('passport');
-const bcrypt = require('bcrypt');
 const logger = require('log4js').getLogger('router:auth');
 
 const User = require('../models/User');
@@ -13,7 +12,7 @@ router.route('/login').post(passport.authenticate('local', { session: true }),
   (request, response) => {
     logger.info(request.user);
     logger.info(request.session);
-    response.status(204).json(request.user);
+    response.json({ id: request.user.id });
   });
 
 router.route('/register').post((request, response) => {

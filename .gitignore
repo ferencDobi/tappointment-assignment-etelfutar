@@ -63,4 +63,6 @@ dbsettings.js
 # next.js build output
 .next
 
+# vscode
+.vscode/
 

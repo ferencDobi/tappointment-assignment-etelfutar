@@ -25,7 +25,7 @@ const localStrategy = () => {
       logger.info(`User ${user.id} found.`);
       bcrypt.compare(password, user.password).then((match) => {
         if (match) {
-          done(null, user.id);
+          done(null, user);
         } else {
           logger.error('Password does not match.');
           done(null, false);
