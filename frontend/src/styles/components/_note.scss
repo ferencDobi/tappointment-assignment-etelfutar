@@ -97,7 +97,7 @@
     }
 
     form {
-      margin-top: 20px;
+      margin-top: 45px;
       
       label {
         margin: 0 0.5rem 0 0;
@@ -128,21 +128,21 @@
         color: $error-red;
 
         &.email {
-          top: 50px;
+          top: 75px;
         }
 
         &.password {
-          top: 150px;
+          top: 175px;
         }
 
         &.confirmPassword {
-          top: 250px;
+          top: 275px;
         }
       }
 
       .form-buttons {
         position: absolute;
-        bottom: 50px;
+        bottom: 25px;
         width: 17rem;
         display: flex;
         justify-content: space-around;
@@ -154,6 +154,7 @@
           font-size: 1.25rem;
           font-weight: bold;
           color: black;
+          border-bottom: 0.125rem solid transparent;
   
           &:hover {
             border-bottom: 0.125rem solid black;

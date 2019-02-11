@@ -1,5 +1,5 @@
 const express = require('express');
-const logger = require('log4js').getLogger('menu');
+const logger = require('log4js').getLogger('router:menu');
 const { Op } = require('sequelize');
 
 const MenuItem = require('../models/MenuItem');
@@ -23,11 +23,11 @@ router.route('/').get((request, response) => {
       }
     }
   }).then((items) => {
+    logger.debug(items);
     response.json(MenuToDTO.convertMany(items));
-    logger.info(items);
   }).catch((error) => {
-    response.json({ error: 'Something went wrong.' });
     logger.error(error);
+    response.status(500).json({ error: 'Váratlan hiba történt.' });
   });
 });
 

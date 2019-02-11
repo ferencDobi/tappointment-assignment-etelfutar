@@ -14,6 +14,7 @@ const App = ({ authenticated }) => (
 );
 
 const mapStateToProps = ({ user }) => {
+  console.log(user.id);
   return { authenticated: Boolean(user.id) };
 };
 

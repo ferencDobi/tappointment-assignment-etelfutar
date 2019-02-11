@@ -28,13 +28,13 @@ const registrationError = error => {
   return { type: actions.REGISTRATION_ERROR, error };
 }
 
-const registerUser = formData => {
+const registerUser = ({ email, password }) => {
   return dispatch => {
-    UserApi.saveUser(formData).then(({ data: user }) => {
+    UserApi.saveUser({ email, password }).then(({ data: user }) => {
       localStorage.setItem('user', JSON.stringify(user));
       dispatch(logIn(user));
     }).catch(error => {
-      dispatch(registrationError(error));
+      dispatch(registrationError(error.response.data));
     });
   }
 }

@@ -6,7 +6,7 @@ export const FormField = ({ field, changeHandler }) => {
   return (
     <Fragment>
       <label htmlFor={name}>{title}:</label>
-      <input type={type} id={name} name={name} value={value} 
+      <input type={type} id={name} name={name} value={value} maxlength="100"
              onChange={changeHandler} required={required} />
       {error && <p className={'error-message ' + name}>{error}</p>}
     </Fragment>
