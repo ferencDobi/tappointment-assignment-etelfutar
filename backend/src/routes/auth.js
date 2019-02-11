@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const bcrypt = require('bcrypt');
 const logger = require('log4js').getLogger('router:auth');
 
 const User = require('../models/User');
@@ -17,7 +18,6 @@ router.route('/login').post(passport.authenticate('local', { session: true }),
 
 router.route('/register').post((request, response) => {
   const { email, password } = request.body;
-
   User.create({ email, password }).then((user) => {
     logger.info(`User created with id ${user.id}.`);
     request.login(user.id, () => {

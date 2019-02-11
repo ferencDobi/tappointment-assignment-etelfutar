@@ -1,4 +1,7 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
 const Sequelize = require('sequelize');
+const bcrypt = require('bcrypt');
 
 const connection = require('../utilities/connection');
 
@@ -21,5 +24,9 @@ const User = connection.define('User', {
     allowNull: false
   }
 });
+
+
+User.beforeCreate(user => bcrypt.hash(user.password, 10).then(hash => user.password = hash));
+
 
 module.exports = User;

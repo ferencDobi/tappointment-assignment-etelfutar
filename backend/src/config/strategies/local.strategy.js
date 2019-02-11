@@ -1,5 +1,6 @@
 const passport = require('passport');
 const { Strategy } = require('passport-local');
+const bcrypt = require('bcrypt');
 const logger = require('log4js').getLogger('passport:local.strategy');
 const { Op } = require('sequelize');
 
@@ -22,12 +23,14 @@ const localStrategy = () => {
       raw: true
     }).then((user) => {
       logger.info(`User ${user.id} found.`);
-      if (user.password === password) {
-        done(null, user.id);
-      } else {
-        logger.error('Password does not match.');
-        done(null, false);
-      }
+      bcrypt.compare(password, user.password).then((match) => {
+        if (match) {
+          done(null, user.id);
+        } else {
+          logger.error('Password does not match.');
+          done(null, false);
+        }
+      });
     }).catch((error) => {
       logger.error(error);
       done(null, false);
