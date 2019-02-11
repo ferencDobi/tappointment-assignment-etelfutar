@@ -3,8 +3,12 @@
 
 .categories {
   padding: 1vw;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
+
+  @media screen and (max-width: 550px) {
+
+  }
 
   button {
     @include standard-button;
@@ -12,16 +16,56 @@
     width: 4rem;
     padding: 0.2rem;
 
+    &:first-of-type {
+      border-top-left-radius: 0.5rem;
+      border-bottom-left-radius: 0.5rem;
+    }
+
+    &:nth-last-of-type(2) {
+      border-top-right-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
+    }
+
     &.selected {
       cursor: default;
       color: $primary-dark;
       background: $contrast-color;
+    }
+
+    &.orders {
+      margin-left: 5rem;
+      border-radius: 0.5rem;
+
+      @media screen and (max-width: 900px) {
+        margin-left: 3.5rem;
+      }
+
+      @media screen and (max-width: 700px) {
+        margin-left: 2rem;
+      }
+
+      @media screen and (max-width: 500px) {
+        margin-left: 0.5rem;
+      }
+    }
+
+    &.orders.selected {
+      cursor: pointer;
     }
     
     svg {
       display: block;
       font-size: 2rem;
       margin: 0.5rem auto;
+    }
+
+    @media screen and (max-width: 800px) {
+      font-size: 0;
+      padding: 0.2rem 0;
+
+      svg {
+        font-size: 1.5rem;
+      }
     }
   }
 }

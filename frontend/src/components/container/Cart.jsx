@@ -6,7 +6,9 @@ import { CartFooter } from '../presentational/CartFooter';
 import { removeFromCart } from '../../actions/cartActions';
 import { logOut } from '../../actions/userActions';
 
-const Cart = ({ cart, total, removeFromCart, logOut }) => {
+const Cart = ({ cart, cartHidden, total, removeFromCart, logOut }) => {
+  if (cartHidden) return <Fragment></Fragment>;
+
   return (
     <Fragment>
       <Note title="Rendelés">
@@ -26,8 +28,9 @@ const Cart = ({ cart, total, removeFromCart, logOut }) => {
   );
 }
 
-const mapStateToProps = ({ cart }) => {
+const mapStateToProps = ({ cart, UI }) => {
   return {
+    cartHidden: !UI.cart,
     cart,
     total: cart.reduce((total, item) => total + item.price * item.amount, 0)
   };

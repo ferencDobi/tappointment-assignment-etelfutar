@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faBacon, faMugHot, faUtensils, faPizzaSlice, faIceCream, faGlassCheers 
+  faBacon, faMugHot, faUtensils, faPizzaSlice, faIceCream, faGlassCheers, faThumbtack 
 } from '@fortawesome/free-solid-svg-icons';
 import { selectCategory } from '../../actions/menuActions';
+import { toggleCart } from '../../actions/uiActions';
 
 const categories = [
   { name: 'Starter', title: 'Előétel', icon: faBacon },
@@ -15,7 +16,7 @@ const categories = [
   { name: 'Drink', title: 'Üdítő', icon: faGlassCheers }
 ];
 
-const Categories = ({ selectCategory, menu }) => (
+const Categories = ({ selectCategory, toggleCart, cartHidden, menu }) => (
   <nav className="categories">
     {categories.map((category, i) => {
       return (
@@ -26,15 +27,28 @@ const Categories = ({ selectCategory, menu }) => (
         </button>
       );
     })}
+    <button className={`orders ${cartHidden ? '' : 'selected'}`} onClick={toggleCart}>
+      <FontAwesomeIcon icon={faThumbtack} />
+      Rendelés
+    </button>
   </nav>
 );
 
-const mapStateToProps = ({ menu }) => ({ menu });
+const mapStateToProps = ({ menu, UI }) => {
+  return { 
+    menu,
+    cartHidden: !UI.cart, 
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     selectCategory: category => {
       dispatch(selectCategory(category));
+    },
+
+    toggleCart: () => {
+      dispatch(toggleCart());
     }
   };
 };
