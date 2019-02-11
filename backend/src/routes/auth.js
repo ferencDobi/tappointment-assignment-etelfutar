@@ -15,6 +15,19 @@ router.route('/login').post(passport.authenticate('local', { session: true }),
     response.json({ id: request.user.id });
   });
 
+router.route('/logout').get((request, response) => {
+  logger.info(`Logging user ${request.user} out.`);
+  request.logout();
+  request.session.destroy((error) => {
+    if (error) {
+      logger.error(error);
+    } else {
+      response.status(200).clearCookie('connect.sid', { path: '/' }).json();
+    }
+  });
+  logger.info(`User: ${request.user}`);
+});
+
 router.route('/register').post((request, response) => {
   const { email, password } = request.body;
   User.create({ email, password }).then((user) => {

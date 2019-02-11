@@ -23,7 +23,8 @@ app.use(cookieParser(SESSION_SECRET));
 app.use(session({
   secret: SESSION_SECRET,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: { httpOnly: false }
 }));
 
 require('./src/config/passport')(app);

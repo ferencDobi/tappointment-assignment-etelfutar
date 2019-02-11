@@ -2,6 +2,28 @@
 
 // Original CodePen by Amanda Williamson @ https://codepen.io/amwill/
 
+@mixin note-actions {
+  position: absolute;
+  bottom: 25px;
+  width: 17rem;
+  display: flex;
+  justify-content: space-around;
+
+  button {
+    background: transparent;
+    border: none;
+    font-family: $title-font;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: black;
+    border-bottom: 0.125rem solid transparent;
+
+    &:hover {
+      border-bottom: 0.125rem solid black;
+    }
+  }
+}
+
 .paper {
   position: absolute;
   height: 500px;
@@ -141,26 +163,12 @@
       }
 
       .form-buttons {
-        position: absolute;
-        bottom: 25px;
-        width: 17rem;
-        display: flex;
-        justify-content: space-around;
-
-        button {
-          background: transparent;
-          border: none;
-          font-family: $title-font;
-          font-size: 1.25rem;
-          font-weight: bold;
-          color: black;
-          border-bottom: 0.125rem solid transparent;
-  
-          &:hover {
-            border-bottom: 0.125rem solid black;
-          }
-        }
+        @include note-actions;
       }
     }
+  }
+
+  .action-buttons {
+    @include note-actions;
   }
 }

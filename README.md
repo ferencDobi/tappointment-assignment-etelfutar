@@ -15,25 +15,21 @@ If everything was done right, the frontend and backend servers should now start 
 * Database connection and persistance using ORM.
 * A basic web server serving up the data as JSON.
 * A React frontend server fetching data from the backend and displaying it in categories. 
-* A Redux store managing the frontend's state.
-* A registration and a login form, complete with client-side validation.
-* Back-end routes managing user persistance.
-* Password hashing.
+* Registration and a login form, complete with client-side validation.
+* Backend routes for managing user persistance with password hashing.
+* Server-side session management.
+* A Redux store managing the frontend's state, including session cookie presence.
 * A client-side shopping cart to put items in and remove items from.
 
 ## Features missing
 
-* Frontend design is not responsive.
 * There is no upper limit for the cart.
-* The cart cannot be processed, as there's no order button.
-* Even if there was an order button, payment wasn't implemented.
-* There is no button or route for logging out.
+* The cart cannot be processed, payment wasn't implemented.
 
 ## Known issues
 
-* Session handling is not implemented on the client-side, which means refreshing the page automatically logs you out.
-* Frontend design is not responsive (It's as much an issue, as its a missing feature. Sadly, I ran out of time. :( ).
+* Frontend design is not responsive.
 
 ## Time spent on the assignment
 
-Approx. 35 hours.
+Approx. 40 hours.

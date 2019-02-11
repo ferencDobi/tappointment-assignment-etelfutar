@@ -13,9 +13,8 @@ const App = ({ authenticated }) => (
   </div>
 );
 
-const mapStateToProps = ({ user }) => {
-  console.log(user.id);
-  return { authenticated: Boolean(user.id) };
+const mapStateToProps = ({ session }) => {
+  return { authenticated: Boolean(session) };
 };
 
 export default connect(mapStateToProps)(App);
