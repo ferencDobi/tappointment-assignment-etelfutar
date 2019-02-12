@@ -10,7 +10,6 @@ const router = express.Router();
 
 router.route('/login').post(passport.authenticate('local', { session: true }),
   (request, response) => {
-    logger.info(request.user);
     logger.info(request.session);
     response.json({ id: request.user.id });
   });

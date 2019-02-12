@@ -13,7 +13,6 @@ const localStrategy = () => {
     usernameField: 'email',
     passwordField: 'password'
   }, (email, password, done) => {
-    logger.info({ email, password });
     User.findOne({
       where: {
         email: {
