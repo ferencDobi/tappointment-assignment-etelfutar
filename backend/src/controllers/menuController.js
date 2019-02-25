@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 
 const MenuToDTO = require('../models/MenuToDTO');
 
-logger.level = process.env.LOG_LEVEL;
+logger.level = process.env.LOG_LEVEL || 'info';
 
 const categories = ['starter', 'soup', 'maindish', 'pizza', 'dessert', 'drink'];
 
@@ -13,7 +13,7 @@ const menuController = (MenuItem) => {
 
     if (!categories.includes(category)) category = '%';
 
-    MenuItem.findAll({
+    return MenuItem.findAll({
       where: {
         Category: {
           [Op.like]: category
