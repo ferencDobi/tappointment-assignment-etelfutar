@@ -34,7 +34,7 @@ const registerUser = ({ email, password }) => {
     UserApi.saveUser({ email, password }).then(({ data: user }) => {
       dispatch(logIn(Cookies.get('connect.sid')));
     }).catch(error => {
-      dispatch(registrationError(error.response.data));
+      dispatch(registrationError(error));
     });
   }
 }
