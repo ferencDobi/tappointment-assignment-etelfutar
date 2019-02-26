@@ -1,12 +1,12 @@
 const passport = require('passport');
 const logger = require('log4js').getLogger('passport');
-require('./strategies/local.strategy')();
 
-const User = require('../models/User');
+const localStrategy = require('./strategies/local.strategy');
 
 logger.level = process.env.LOG_LEVEL;
 
-const config = (app) => {
+const config = (app, User) => {
+  localStrategy(User);
   app.use(passport.initialize());
   app.use(passport.session());
 

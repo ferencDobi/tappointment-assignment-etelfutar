@@ -1,6 +1,6 @@
 const sinon = require('sinon');
-const should = require('should');
 const DataTypes = require('sequelize');
+require('should');
 
 const connection = require('../utilities/testDb');
 const MenuItem = require('../models/MenuItem')(connection, DataTypes);

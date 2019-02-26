@@ -4,36 +4,37 @@ const bcrypt = require('bcrypt');
 const logger = require('log4js').getLogger('passport:local.strategy');
 const { Op } = require('sequelize');
 
-const User = require('../../models/User');
+const { AuthenticationException } = require('../../utilities/exceptions');
 
 logger.level = process.env.LOG_LEVEL;
 
-const localStrategy = () => {
+const localStrategy = (User) => {
   passport.use(new Strategy({
     usernameField: 'email',
     passwordField: 'password'
-  }, (email, password, done) => {
-    User.findOne({
-      where: {
-        email: {
-          [Op.like]: email
-        }
-      },
-      raw: true
-    }).then((user) => {
-      logger.info(`User ${user.id} found.`);
-      bcrypt.compare(password, user.password).then((match) => {
-        if (match) {
-          done(null, user);
-        } else {
-          logger.error('Password does not match.');
-          done(null, false);
-        }
+  }, async (email, password, done) => {
+    try {
+      const user = await User.findOne({
+        where: {
+          email: {
+            [Op.like]: email
+          }
+        },
+        raw: true
       });
-    }).catch((error) => {
-      logger.error(error);
+
+      if (!user) throw new AuthenticationException('User not found.');
+
+      logger.info(`User ${user.id} found.`);
+      const match = await bcrypt.compare(password, user.password);
+
+      if (!match) throw new AuthenticationException('Password does not match.');
+
+      done(null, user);
+    } catch (error) {
+      logger.error(`${error}`);
       done(null, false);
-    });
+    }
   }));
 };
 

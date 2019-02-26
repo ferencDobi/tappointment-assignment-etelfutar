@@ -5,9 +5,16 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const cors = require('cors');
+const Sequelize = require('sequelize');
 const logger = require('log4js').getLogger('app');
 
 require('dotenv').config();
+
+const connection = require('./src/utilities/connection');
+const User = require('./src/models/User')(connection, Sequelize);
+const MenuItem = require('./src/models/MenuItem')(connection, Sequelize);
+const authRouter = require('./src/routes/auth')(User);
+const menuRouter = require('./src/routes/menu')(MenuItem);
 
 const port = process.env.PORT || 3001;
 const { LOG_LEVEL, SESSION_SECRET } = process.env;
@@ -27,15 +34,15 @@ app.use(session({
   cookie: { httpOnly: false }
 }));
 
-require('./src/config/passport')(app);
+require('./src/config/passport')(app, User);
 
 app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true
 }));
 app.use(express.static('public'));
-app.use('/menu', require('./src/routes/menu'));
-app.use('/auth', passport.initialize(), require('./src/routes/auth'));
+app.use('/menu', menuRouter);
+app.use('/auth', passport.initialize(), authRouter);
 
 app.listen(port, () => {
   logger.info(`Listening on port ${port}...`);

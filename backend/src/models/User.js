@@ -1,32 +1,34 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-return-assign */
-const Sequelize = require('sequelize');
 const bcrypt = require('bcrypt');
 
-const connection = require('../utilities/connection');
-
-const User = connection.define('User', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  email: {
-    type: Sequelize.STRING(255),
-    allowNull: false,
-    unique: true,
-    validate: {
-      isEmail: true,
+const User = (connection, DataTypes) => {
+  const model = connection.define('User', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    email: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+      }
+    },
+    password: {
+      type: DataTypes.STRING(255),
+      allowNull: false
     }
-  },
-  password: {
-    type: Sequelize.STRING(255),
-    allowNull: false
-  }
-});
+  });
 
+  model.beforeCreate(user => bcrypt.hash(
+    user.password, 10
+  ).then((hash) => {
+    // eslint-disable-next-line no-param-reassign
+    user.password = hash;
+  }));
 
-User.beforeCreate(user => bcrypt.hash(user.password, 10).then(hash => user.password = hash));
-
+  return model;
+};
 
 module.exports = User;
