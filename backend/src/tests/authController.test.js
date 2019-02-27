@@ -9,19 +9,19 @@ const matchers = require('../utilities/matchers');
 
 const testUser = { id: 1, email: 'email@host.com', password: 'password' };
 
-beforeEach(() => User.create(testUser));
-
-afterEach(() => User.destroy({ truncate: true }));
-
 describe('Auth Controller Tests:', () => {
   let response;
 
-  before(() => {
+  beforeEach(() => {
+    User.create(testUser);
+
     response = {
       json: sinon.spy(),
       status: sinon.spy()
     };
   });
+
+  afterEach(() => User.destroy({ truncate: true }));
 
   describe('Login', () => {
     it('should return the id of the user when user is authenticated', async () => {

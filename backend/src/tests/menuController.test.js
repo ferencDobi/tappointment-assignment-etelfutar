@@ -11,15 +11,15 @@ const testData = require('../utilities/testData');
 
 const testDataDTO = MenuToDTO.convertMany(testData);
 
-beforeEach(() => MenuItem.bulkCreate(testData));
-
-afterEach(() => MenuItem.destroy({ truncate: true }));
-
 describe('Menu Controller Tests:', () => {
+  before(() => MenuItem.bulkCreate(testData));
+
+  after(() => MenuItem.destroy({ truncate: true }));
+
   describe('Get', () => {
     let response;
 
-    before(() => {
+    beforeEach(() => {
       response = {
         json: sinon.spy()
       };
