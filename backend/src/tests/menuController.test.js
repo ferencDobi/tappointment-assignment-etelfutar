@@ -27,9 +27,10 @@ describe('Menu Controller Tests:', () => {
     it('should return all items when called without a category', async () => {
       await controller.get({ query: {} }, response);
 
+      response.json.calledOnce.should.be.true;
       response.json.calledWithMatch(
         sinon.match.array.deepEquals(testDataDTO)
-      ).should.equal(true);
+      ).should.be.true;
     });
 
     it('should return filtered items when provided with a category', async () => {
@@ -43,9 +44,10 @@ describe('Menu Controller Tests:', () => {
 
       const filteredData = testDataDTO.filter(data => data.category === 'starter');
 
+      response.json.calledOnce.should.be.true;
       response.json.calledWithMatch(
         sinon.match.array.deepEquals(filteredData)
-      ).should.equal(true);
+      ).should.be.true;
     });
   });
 });

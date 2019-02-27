@@ -11,18 +11,17 @@ const testUser = { id: 1, email: 'email@host.com', password: 'password' };
 describe('Auth Controller Tests:', () => {
   let response;
 
-  beforeEach(() => {
-    User.create(testUser);
-
-    response = {
-      json: sinon.spy(),
-      status: sinon.spy()
-    };
-  });
+  beforeEach(() => User.create(testUser));
 
   afterEach(() => User.destroy({ truncate: true }));
 
   describe('Login', () => {
+    beforeEach(() => {
+      response = {
+        json: sinon.spy()
+      };
+    });
+
     it('should return the id of the user when user is authenticated', async () => {
       const request = {
         user: testUser
@@ -30,16 +29,52 @@ describe('Auth Controller Tests:', () => {
 
       await controller.login(request, response);
 
+      response.json.calledOnce.should.be.true;
       response.json.calledWithMatch(
         sinon.match({ id: 1 })
-      ).should.equal(true);
+      ).should.be.true;
     });
   });
 
   describe('Logout', () => {
-    it('should call logout on the request');
-    it('should destroy the session');
-    it('should clear the client\'s session cookie');
+    let request;
+
+    beforeEach(() => {
+      response = {
+        json: sinon.spy(),
+        status: sinon.spy(),
+        clearCookie: sinon.spy()
+      };
+
+      request = {
+        logout: sinon.spy(),
+        session: { destroy: sinon.spy() }
+      };
+    });
+
+    it('should call logout on the request', async () => {
+      await controller.logout(request, response);
+
+      request.logout.calledOnce.should.be.true;
+    });
+
+    it('should destroy the session', async () => {
+      await controller.logout(request, response);
+
+      request.session.destroy.calledOnce.should.be.true;
+    });
+
+    it('should clear the client\'s session cookie', async () => {
+      await controller.logout(request, response);
+
+      request.session.destroy.args[0][0]();
+      response.status.calledWith(200);
+      response.clearCookie.calledWithMatch(
+        sinon.match('connect.sid'),
+        sinon.match({ path: '/' })
+      ).should.be.true;
+      response.json.calledOnce.should.be.true;
+    });
   });
 
   describe('Register', () => {

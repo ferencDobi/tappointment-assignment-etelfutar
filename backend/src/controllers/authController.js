@@ -15,7 +15,9 @@ const authController = (User) => {
       if (error) {
         logger.error(error);
       } else {
-        response.status(200).clearCookie('connect.sid', { path: '/' }).json();
+        response.status(200);
+        response.clearCookie('connect.sid', { path: '/' });
+        response.json();
       }
     });
     logger.info(`User: ${request.user}`);
