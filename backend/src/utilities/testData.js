@@ -10,6 +10,8 @@ const generateMenuItem = () => ({
   Vegatarian: chance.natural({ min: 0, max: 1 })
 });
 
-const menuItems = Array.from({ length: 50 }, generateMenuItem);
+const menuItems = Array
+  .from({ length: 50 }, generateMenuItem)
+  .sort((a, b) => a.id - b.id);
 
 module.exports = menuItems;

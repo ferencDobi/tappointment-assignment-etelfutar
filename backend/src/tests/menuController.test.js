@@ -1,11 +1,10 @@
 const sinon = require('sinon');
 const DataTypes = require('sequelize');
-require('should');
+require('chai').should();
 
 const connection = require('../utilities/testDb');
 const MenuItem = require('../models/MenuItem')(connection, DataTypes);
 const controller = require('../controllers/menuController')(MenuItem);
-const matchers = require('../utilities/matchers');
 const MenuToDTO = require('../models/MenuToDTO');
 const testData = require('../utilities/testData');
 
@@ -29,7 +28,7 @@ describe('Menu Controller Tests:', () => {
       await controller.get({ query: {} }, response);
 
       response.json.calledWithMatch(
-        sinon.match(items => matchers.equalsInAnyOrder(items, testDataDTO, 'id'))
+        sinon.match.array.deepEquals(testDataDTO)
       ).should.equal(true);
     });
 
@@ -45,7 +44,7 @@ describe('Menu Controller Tests:', () => {
       const filteredData = testDataDTO.filter(data => data.category === 'starter');
 
       response.json.calledWithMatch(
-        sinon.match(items => matchers.equalsInAnyOrder(items, filteredData, 'id'))
+        sinon.match.array.deepEquals(filteredData)
       ).should.equal(true);
     });
   });

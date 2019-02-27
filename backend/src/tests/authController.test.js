@@ -1,11 +1,10 @@
 const sinon = require('sinon');
 const DataTypes = require('sequelize');
-require('should');
+require('chai').should();
 
 const connection = require('../utilities/testDb');
 const User = require('../models/User')(connection, DataTypes);
 const controller = require('../controllers/authController')(User);
-const matchers = require('../utilities/matchers');
 
 const testUser = { id: 1, email: 'email@host.com', password: 'password' };
 
@@ -38,7 +37,7 @@ describe('Auth Controller Tests:', () => {
   });
 
   describe('Logout', () => {
-    it('should call the logout on the request');
+    it('should call logout on the request');
     it('should destroy the session');
     it('should clear the client\'s session cookie');
   });
