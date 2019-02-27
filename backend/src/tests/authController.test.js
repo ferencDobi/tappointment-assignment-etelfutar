@@ -36,4 +36,16 @@ describe('Auth Controller Tests:', () => {
       ).should.equal(true);
     });
   });
+
+  describe('Logout', () => {
+    it('should call the logout on the request');
+    it('should destroy the session');
+    it('should clear the client\'s session cookie');
+  });
+
+  describe('Register', () => {
+    it('should create a new user when given a unique email');
+    it('should log any newly created user in');
+    it('should return an error message when given an already used email');
+  });
 });
