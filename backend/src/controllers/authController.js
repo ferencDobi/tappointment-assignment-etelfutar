@@ -23,18 +23,21 @@ const authController = (User) => {
     logger.info(`User: ${request.user}`);
   };
 
-  const register = (request, response) => {
+  const register = async (request, response) => {
     const { email, password } = request.body;
-    User.create({ email, password }).then((user) => {
+    try {
+      const user = await User.create({ email, password });
       logger.info(`User created with id ${user.id}.`);
       request.login(user, () => {
         logger.info(`User ${user.id} was logged in.`);
+        response.status(201);
         response.json({ id: user.id });
       });
-    }).catch((error) => {
+    } catch (error) {
       logger.error(error);
-      response.status(400).json({ error: 'E-mail cím foglalt.' });
-    });
+      response.status(400);
+      response.json({ error: 'E-mail cím foglalt.' });
+    }
   };
 
   return { login, logout, register };

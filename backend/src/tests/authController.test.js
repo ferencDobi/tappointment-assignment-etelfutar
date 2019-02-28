@@ -67,8 +67,8 @@ describe('Auth Controller Tests:', () => {
     it('should clear the client\'s session cookie', async () => {
       await controller.logout(request, response);
 
-      request.session.destroy.args[0][0]();
-      response.status.calledWith(200);
+      request.session.destroy.firstCall.args[0]();
+      response.status.calledWith(200).should.be.true;
       response.clearCookie.calledWithMatch(
         sinon.match('connect.sid'),
         sinon.match({ path: '/' })
@@ -78,8 +78,51 @@ describe('Auth Controller Tests:', () => {
   });
 
   describe('Register', () => {
-    it('should create a new user when given a unique email');
-    it('should log any newly created user in');
-    it('should return an error message when given an already used email');
+    let request;
+
+    beforeEach(() => {
+      response = {
+        json: sinon.spy(),
+        status: sinon.spy(),
+      };
+
+      request = {
+        login: sinon.spy()
+      };
+    });
+
+    it('should create a new user when given a unique email', async () => {
+      request.body = { email: 'email2@host.com', password: 'password' };
+
+      await controller.register(request, response);
+
+      const user = request.login.firstCall.args[0];
+
+      user.should.have.property('email').equal('email2@host.com');
+    });
+
+    it('should log any newly created user in', async () => {
+      request.body = { email: 'email2@host.com', password: 'password' };
+
+      await controller.register(request, response);
+
+      request.login.calledOnce.should.be.true;
+      request.login.firstCall.args[1]();
+      response.status.calledWith(201).should.be.true;
+      response.json.calledWithMatch(
+        sinon.match.hasOwn('id', sinon.match(id => id !== 1))
+      ).should.be.true;
+    });
+
+    it('should respond with an error when given an already used email', async () => {
+      request.body = { email: testUser.email, password: 'password' };
+
+      await controller.register(request, response);
+
+      response.status.calledWith(400).should.be.true;
+      response.json.calledWithMatch(
+        sinon.match.hasOwn('error')
+      ).should.be.true;
+    });
   });
 });
