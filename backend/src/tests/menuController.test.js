@@ -2,11 +2,11 @@ const sinon = require('sinon');
 const DataTypes = require('sequelize');
 require('chai').should();
 
-const connection = require('../utilities/testDb');
+const connection = require('./utils/testDb');
 const MenuItem = require('../models/MenuItem')(connection, DataTypes);
 const controller = require('../controllers/menuController')(MenuItem);
 const MenuToDTO = require('../models/MenuToDTO');
-const testData = require('../utilities/testData');
+const testData = require('./utils/testData');
 
 const testDataDTO = MenuToDTO.convertMany(testData);
 

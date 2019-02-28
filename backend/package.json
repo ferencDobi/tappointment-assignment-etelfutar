@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon app.js",
     "debug": "nodemon --inspect app.js --ignore public/",
-    "test": "mocha src/tests/**/*.test.js",
+    "test": "nyc --all mocha src/tests/**/*.test.js",
     "lint": "eslint app.js"
   },
   "author": "",
@@ -34,6 +34,7 @@
     "eslint-plugin-import": "^2.16.0",
     "mocha": "^6.0.1",
     "nodemon": "^1.18.9",
+    "nyc": "^13.3.0",
     "sinon": "^7.2.4",
     "sqlite3": "^4.0.6"
   },
@@ -50,5 +51,11 @@
     "events": {
       "restart": "fuser -k 3001/tcp"
     }
+  },
+  "nyc": {
+    "exclude": [
+      "src/tests",
+      "coverage"
+    ]
   }
 }

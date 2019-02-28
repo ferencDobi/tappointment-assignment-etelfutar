@@ -2,7 +2,7 @@ const sinon = require('sinon');
 const DataTypes = require('sequelize');
 require('chai').should();
 
-const connection = require('../utilities/testDb');
+const connection = require('./utils/testDb');
 const User = require('../models/User')(connection, DataTypes);
 const controller = require('../controllers/authController')(User);
 
