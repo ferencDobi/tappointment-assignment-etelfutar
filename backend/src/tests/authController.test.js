@@ -48,7 +48,7 @@ describe('Auth Controller Tests:', () => {
 
       request = {
         logout: sinon.spy(),
-        session: { destroy: sinon.spy() }
+        session: { destroy: sinon.stub() }
       };
     });
 
@@ -67,7 +67,7 @@ describe('Auth Controller Tests:', () => {
     it('should clear the client\'s session cookie', async () => {
       await controller.logout(request, response);
 
-      request.session.destroy.firstCall.args[0]();
+      request.session.destroy.callArg(0);
       response.status.calledWith(200).should.be.true;
       response.clearCookie.calledWithMatch(
         sinon.match('connect.sid'),
@@ -87,7 +87,7 @@ describe('Auth Controller Tests:', () => {
       };
 
       request = {
-        login: sinon.spy()
+        login: sinon.stub()
       };
     });
 
@@ -107,7 +107,7 @@ describe('Auth Controller Tests:', () => {
       await controller.register(request, response);
 
       request.login.calledOnce.should.be.true;
-      request.login.firstCall.args[1]();
+      request.login.callArg(1);
       response.status.calledWith(201).should.be.true;
       response.json.calledWithMatch(
         sinon.match.hasOwn('id', sinon.match(id => id !== 1))
